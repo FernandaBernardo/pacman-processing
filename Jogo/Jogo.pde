@@ -4,7 +4,7 @@ PacMan pacman;
 void setup() {
   size(800, 600);
   level = new Level1();
-  pacman = new PacMan (400, 300);
+  pacman = new PacMan (400, 300, tamPacMan, tamPacMan);
 }
 
 void draw () {
@@ -12,7 +12,7 @@ void draw () {
 
   level.desenha();
   pacman.desenha();
-  pacman.colisaoParede();
+  pacman.colideCom(null);
 }
 
 void keyPressed () {

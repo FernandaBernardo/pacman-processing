@@ -1,20 +1,20 @@
-class PacMan {
-  int x;
-  int y;
+class PacMan extends Sprite {
   int direcao;
   int up;
   int down;
   int left;
   int right;
 
-  PacMan (int px, int py) {
+  PacMan (int px, int py, int pw, int ph) {
     x = px;
     y = py;
+    w = pw;
+    h = ph;
     direcao = 'p';
-    up = y - tamPacMan/2;
-    down = y + tamPacMan/2;
-    left = x - tamPacMan/2;
-    right = x + tamPacMan/2;
+    up = y - h/2;
+    down = y + h/2;
+    left = x - w/2;
+    right = x + w/2;
   }
 
   void desenha () {
@@ -26,7 +26,7 @@ class PacMan {
     rect (left, up, 2, tamPacMan);
   }
 
-  void colisaoParede () {
+  boolean colideCom(Barreira b) {
     switch (direcao) {
       case ('u'):
       if (!colisaoBarreira()) {
@@ -77,36 +77,7 @@ class PacMan {
       break;
     }
   }
-
-  boolean colisaoBarreira () {
-    switch (direcao) {
-      case ('u'):
-      for (Barreira b: level.barreiras) {
-        if (rectRect(b.x, b.y, b.w, 2*b.h, left, up, tamPacMan, 1)) return true;
-      }
-      break;
-
-      case ('d'):
-      for (Barreira b: level.barreiras) {
-        if (rectRect(b.x, b.y, b.w, b.h, left, down, tamPacMan, 1)) return true;
-      }
-      break;
-
-      case ('r'):
-      for (Barreira b: level.barreiras) {
-        if (rectRect(b.x, b.y, b.w, b.h, right, up, 1, tamPacMan)) return true;
-      }
-      break;
-
-      case ('l'):
-      for (Barreira b: level.barreiras) {
-        if (rectRect(b.x, b.y, 2*b.w, b.h, left, up, 1, tamPacMan)) return true;
-      }
-      break;
-    }
-    return false;
-  }
-
+  
   void keyPressed () {
     if (key == CODED) {
       if (keyCode == UP) direcao = 'u';
