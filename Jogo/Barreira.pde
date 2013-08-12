@@ -1,4 +1,4 @@
-class Barreira extends Sprite{
+class Barreira extends Sprite {
   Barreira(int px, int py, int pw, int ph) {
     x = px;
     y = py;

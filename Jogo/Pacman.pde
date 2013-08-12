@@ -1,90 +1,119 @@
 class PacMan extends Sprite {
   int direcao;
-  int up;
-  int down;
-  int left;
-  int right;
+  int speed;
+  final int andando = 5;
+  final int parado = 0;
 
   PacMan (int px, int py, int pw, int ph) {
     x = px;
     y = py;
     w = pw;
     h = ph;
-    direcao = 'p';
-    up = y - h/2;
-    down = y + h/2;
-    left = x - w/2;
-    right = x + w/2;
+    direcao = 'r';
+
+    speed = parado;
   }
 
   void desenha () {
-    fill(255);
-    ellipse(x, y, tamPacMan, tamPacMan);
-    rect (left, up, tamPacMan, 2);
-    rect (left, down, tamPacMan, 2);
-    rect (right, up, 2, tamPacMan);
-    rect (left, up, 2, tamPacMan);
-  }
-
-  boolean colideCom(Barreira b) {
+    fill(255, 255, 0);
+    ellipse(x, y, w, h);
+    fill(0);
     switch (direcao) {
-      case ('u'):
-      if (!colisaoBarreira()) {
-        if (pacman.y>tamPacMan/2) {
-          pacman.y-=5;
-          up = y - tamPacMan/2;
-          down = y + tamPacMan/2;
-          left = x - tamPacMan/2;
-          right = x + tamPacMan/2;
-        }
+    case 'u': 
+      {
+        triangle(x, y, x-SIZE_PACMAN/2, y-SIZE_PACMAN/2, x+SIZE_PACMAN/2, y-SIZE_PACMAN/2);
+        break;
       }
-      break;
-
-      case ('d'):
-      if (!colisaoBarreira()) { 
-        if (pacman.y<height-tamPacMan/2) {
-          pacman.y+=5;
-          up = y - tamPacMan/2;
-          down = y + tamPacMan/2;
-          left = x - tamPacMan/2;
-          right = x + tamPacMan/2;
-        }
+    case 'd': 
+      {
+        triangle(x, y, x-SIZE_PACMAN/2, y+SIZE_PACMAN/2, x+SIZE_PACMAN/2, y+SIZE_PACMAN/2);
+        break;
       }
-      break;
-
-      case ('l'): 
-      if (!colisaoBarreira()) {
-        if (pacman.x>tamPacMan/2) {
-          pacman.x-=5;
-          up = y - tamPacMan/2;
-          down = y + tamPacMan/2;
-          left = x - tamPacMan/2;
-          right = x + tamPacMan/2;
-        }
+    case 'l': 
+      {
+        triangle(x, y, x-SIZE_PACMAN/2, y-SIZE_PACMAN/2, x-SIZE_PACMAN/2, y+SIZE_PACMAN/2);
+        break;
       }
-      break;
-
-      case ('r'): 
-      if (!colisaoBarreira()) {
-        if (pacman.x<width-tamPacMan/2) {
-          pacman.x+=5;
-          up = y - tamPacMan/2;
-          down = y + tamPacMan/2;
-          left = x - tamPacMan/2;
-          right = x + tamPacMan/2;
-        }
-      } 
-      break;
+    case 'r': 
+      {
+        triangle(x, y, x+SIZE_PACMAN/2, y-SIZE_PACMAN/2, x+SIZE_PACMAN/2, y+SIZE_PACMAN/2);
+        break;
+      }
     }
   }
-  
-  void keyPressed () {
+
+  boolean colideCom (Sprite ps) {
+    int up = y - h/2;
+    int down = y + h/2;
+    int left = x - w/2;
+    int right = x + w/2;
+
+    boolean colidiu = false;
+    if (up <= ps.y + ps.h/2 && down >= ps.y - ps.h/2 && left <= ps.x + ps.w/2 && right >= ps.x - ps.w/2) colidiu = true;
+
+    return colidiu;
+  }
+
+  void mudaDirecao () {
     if (key == CODED) {
-      if (keyCode == UP) direcao = 'u';
-      if (keyCode == LEFT) direcao = 'l';
-      if (keyCode == DOWN) direcao = 'd';
-      if (keyCode == RIGHT) direcao = 'r';
+      switch (keyCode) {
+      case UP: 
+        {
+          direcao = 'u';
+          break;
+        }
+      case DOWN: 
+        {
+          direcao = 'd';
+          break;
+        }
+      case LEFT: 
+        {
+          direcao = 'l';
+          break;
+        }
+      case RIGHT: 
+        {
+          direcao = 'r';
+          break;
+        }
+      default: 
+        {
+          break;
+        }
+      }
     }
+  }  
+
+  void move (boolean invert) {
+    if (!invert) speed = -speed;
+    switch (direcao) {
+    case 'u': 
+      {
+        y -= speed;
+        break;
+      }
+    case 'd': 
+      {
+        y += speed;
+        break;
+      }
+    case 'l': 
+      {
+        x -= speed;
+        break;
+      }
+    case 'r': 
+      {
+        x += speed;
+        break;
+      }
+    default: 
+      {
+        break;
+      }
+    }
+    if (!invert) speed = -speed;
   }
 }
 

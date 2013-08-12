@@ -7,5 +7,4 @@ abstract class Sprite {
   abstract void desenha();
   
   abstract boolean colideCom(Sprite s);
-  
 }
