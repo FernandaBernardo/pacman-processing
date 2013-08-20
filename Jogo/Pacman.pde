@@ -21,22 +21,22 @@ class PacMan extends Sprite {
     switch (direcao) {
     case 'u': 
       {
-        triangle(x, y, x-SIZE_PACMAN/2, y-SIZE_PACMAN/2, x+SIZE_PACMAN/2, y-SIZE_PACMAN/2);
+        triangle(x, y, x-w/2, y-h/2, x+w/2, y-h/2);
         break;
       }
     case 'd': 
       {
-        triangle(x, y, x-SIZE_PACMAN/2, y+SIZE_PACMAN/2, x+SIZE_PACMAN/2, y+SIZE_PACMAN/2);
+        triangle(x, y, x-w/2, y+h/2, x+w/2, y+h/2);
         break;
       }
     case 'l': 
       {
-        triangle(x, y, x-SIZE_PACMAN/2, y-SIZE_PACMAN/2, x-SIZE_PACMAN/2, y+SIZE_PACMAN/2);
+        triangle(x, y, x-w/2, y-h/2, x-w/2, y+h/2);
         break;
       }
     case 'r': 
       {
-        triangle(x, y, x+SIZE_PACMAN/2, y-SIZE_PACMAN/2, x+SIZE_PACMAN/2, y+SIZE_PACMAN/2);
+        triangle(x, y, x+w/2, y-h/2, x+w/2, y+h/2);
         break;
       }
     }
