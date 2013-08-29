@@ -11,10 +11,13 @@ class Game extends GameRunnable {
 	GameState currentGameState;
 
 	public Game () {
-		setup(); // @DEBUG
+		setup();
+	}
+	// @DEBUG
+	public Game (int pInterval) {
+		setup();
 	}
 
-	// @DEBUG
 	void printMatrix (char[][] pMatrix) {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		for (int i = 0; i < pMatrix.length; i++) {
